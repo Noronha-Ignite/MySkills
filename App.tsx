@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { StatusBar } from 'react-native';
-import { Home } from './src/Pages';
+import { Home } from './src/pages';
 
 export default function App() {
   return (

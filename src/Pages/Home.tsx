@@ -8,8 +8,8 @@ import {
   TextInput,
 } from 'react-native';
 import uuid from 'react-native-uuid';
-import { Button, SkillCard } from '../Components';
-import { Skill } from '../Models/Skill';
+import { Button, SkillCard } from '../components';
+import { Skill } from '../models/Skill';
 
 export const Home = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
