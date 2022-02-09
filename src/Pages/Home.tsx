@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   FlatList,
   Platform,
@@ -15,17 +15,23 @@ export const Home = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [skillToBeAdd, setSkillToBeAdd] = useState('');
 
-  const handleAddSkill = () => {
+  const handleAddSkill = useCallback(() => {
     if (!skillToBeAdd.trim()) {
       return;
     }
 
     setSkills((previousSkills) => [
       ...previousSkills,
-      { id: uuid.v4() as string, name: skillToBeAdd },
+      { id: uuid.v4().toString(), name: skillToBeAdd },
     ]);
     setSkillToBeAdd('');
-  };
+  }, [skillToBeAdd]);
+
+  const handleRemoveSkill = useCallback((skill: Skill) => {
+    setSkills((previousSkills) => {
+      return previousSkills.filter((item) => item.id !== skill.id);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,7 +53,9 @@ export const Home = () => {
 
       <FlatList
         data={skills}
-        renderItem={({ item }) => <SkillCard skill={item} />}
+        renderItem={({ item }) => (
+          <SkillCard onPress={() => handleRemoveSkill(item)} skill={item} />
+        )}
         keyExtractor={(skill) => skill.id}
       />
     </SafeAreaView>
